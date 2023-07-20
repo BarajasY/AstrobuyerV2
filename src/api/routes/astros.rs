@@ -2,6 +2,7 @@ use axum::{extract::State, Json, http::StatusCode};
 use serde::{Deserialize, Serialize};
 use sqlx::Row;
 use sqlx_postgres::PgPool;
+
 #[derive(Deserialize, Serialize)]
 pub struct Astros {
     id: Option<i32>,
@@ -12,8 +13,13 @@ pub struct Astros {
     image: String
 }
 
+#[derive(Deserialize, Serialize)]
+pub struct DeleteAstro {
+    id: i32
+}
+
 pub async fn root()-> &'static str {
-    "Hola"
+    "Homepage for Astrobuyer site!"
 }
 
 pub async fn get_astros(State(db_pool): State<PgPool>) -> (StatusCode, Json<Vec<Astros>>) {
@@ -40,11 +46,22 @@ pub async fn make_astro(State(db_pool): State<PgPool>, Json(payload): Json<Astro
 
     sqlx::query(query)
         .bind(&payload.name)
-        .bind(&payload.price)
+        .bind(payload.price)
         .bind(&payload.category)
-        .bind(&payload.temperature)
+        .bind(payload.temperature)
         .bind(&payload.image)
         .execute(&db_pool).await.expect("Error running make_astro query");
+
+    StatusCode::OK
+}
+
+pub async fn delete_astro(State(db_pool): State<PgPool>, Json(payload): Json<DeleteAstro>) -> StatusCode {
+    let query = "DELETE FROM astros WHERE id = $1";
+
+    sqlx::query(query)
+    .bind(payload.id)
+    .execute(&db_pool)
+    .await.expect("Error deleting astro.");
 
     StatusCode::OK
 }
