@@ -4,6 +4,7 @@ import Store from "./components/Store";
 import { QueryClientProvider, QueryClient } from "@tanstack/solid-query";
 import Navbar from "./components/Navbar";
 import { Route, Router, Routes } from "@solidjs/router";
+import Login from "./components/Login";
 
 const App: Component = () => {
   const queryclient: QueryClient = new QueryClient();
@@ -17,6 +18,14 @@ const App: Component = () => {
             element={
               <>
                 <Navbar /> <Home /> <Store />
+              </>
+            }
+          />
+          <Route
+            path="/login"
+            element={
+              <>
+                <Navbar /> <Login />
               </>
             }
           />

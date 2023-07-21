@@ -1,23 +1,25 @@
 import { ShoppingCart, Stars, User2 } from "lucide-solid";
 import style from "../styles/Navbar.module.css";
 import { useTooltip } from "../utils/useTooltip";
-import { createSignal } from "solid-js";
+import { Component, createSignal } from "solid-js";
 import { A } from "@solidjs/router";
 
-const Navbar = () => {
+const Navbar:Component = () => {
   const [Settings, setSettings] = createSignal(false);
 
   return (
     <div class={style.navbarContainer}>
       <div class={style.navbarContent}>
         <section class={style.logoSection}>
-          <h1>
+          <A href="/">
             Astrobuyer&nbsp;
             <Stars size={20} strokeWidth={2} />
-          </h1>
+          </A>
         </section>
         <section class={style.userSection}>
-          <User2
+          <A href="/login">Login</A>
+          <A href="/signup">Signup</A>
+{/*           <User2
             size={25}
             strokeWidth={2}
             class={style.profileIcon}
@@ -31,13 +33,13 @@ const Navbar = () => {
               <h1>Hola</h1>
               <h1>Hola</h1>
             </div>
-          )}
-          <ShoppingCart
+          )} */}
+{/*           <ShoppingCart
             size={25}
             strokeWidth={2}
             class={style.cartIcon}
             onMouseOver={(e) => useTooltip("Cart", e)}
-          />
+          /> */}
         </section>
       </div>
     </div>
