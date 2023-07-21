@@ -25,7 +25,13 @@ code {
 
 :root {
   --cyan: #29acf1;
+  --lightblue: #92cde9;
+  --green: #7cba5f;
+  --redbrown: #6b183a;
+  --darkblue: #0047ac;
 }
+
+
 
 @font-face {
   font-family: "Poppins";

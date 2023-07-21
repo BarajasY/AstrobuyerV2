@@ -17,6 +17,7 @@
   },
   "dependencies": {
     "@motionone/solid": "^10.16.2",
+    "@solidjs/router": "^0.8.2",
     "@tanstack/solid-query": "^4.29.25",
     "crypto-hash": "^2.0.1",
     "lucide-solid": "^0.262.0",
