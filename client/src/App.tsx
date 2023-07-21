@@ -1,17 +1,19 @@
-import { onMount, type Component, createSignal } from 'solid-js';
-import logo from './logo.svg';
-import styles from './styles/App.module.css';
-import {sha256} from "crypto-hash";
-import Home from './components/Home';
-import Store from './components/Store';
-import { NumSignal } from './sharedSignals';
+import {Component} from "solid-js";
+import styles from "./styles/App.module.css";
+import Home from "./components/Home";
+import Store from "./components/Store";
+import { QueryClientProvider, QueryClient } from "@tanstack/solid-query";
 
-const App: Component = () => {
+const App:Component = () => {
+  const queryclient:QueryClient = new QueryClient();
+
   return (
-    <div class={styles.App}>
-      <Home />
-      <Store />
-    </div>
+    <QueryClientProvider client={queryclient}>
+      <div class={styles.App}>
+        <Home />
+        <Store />
+      </div>
+    </QueryClientProvider>
   );
 };
 

@@ -13,7 +13,7 @@ const Home:Component = () => {
         <Motion.p
         initial={{opacity: 0, y: 30}}
         inView={{opacity: 1, y: 0}}
-        transition={{delay: 2, duration: 1}}
+        transition={{delay: 1, duration: 1}}
         >Your favorite place to buy <span>planets</span></Motion.p>
     </div>
   )
