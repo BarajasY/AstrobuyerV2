@@ -2,7 +2,7 @@ import style from "../styles/Store.module.css";
 import { Astro } from "../utils/types";
 import { useQuery } from "../utils/utils";
 import { Switch, Match, For, Component } from "solid-js";
-import { Thermometer } from "lucide-solid";
+import { FiThermometer } from 'solid-icons/fi'
 import ShopFilters from "./ShopFilters";
 
 const Store:Component = () => {
@@ -34,7 +34,7 @@ const Store:Component = () => {
                       <h1 class={style.fullWidth}>{astro.category}</h1>
                       <h1 class={style.fullWidth}>
                         {astro.temperature}
-                        <Thermometer size={18} strokeWidth={3} />
+                        <FiThermometer size={18}/>
                       </h1>
                     </div>
                   )}

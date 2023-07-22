@@ -12,3 +12,9 @@ export type User = {
     password: string,
     email: string
 }
+
+export type UserClient = {
+    user: string,
+    email: string,
+    isLogged: boolean
+}

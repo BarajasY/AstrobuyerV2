@@ -1,8 +1,14 @@
-import { Component } from "solid-js"
+import { Component, onMount } from "solid-js"
 import style from "../styles/Home.module.css";
 import { Motion } from "@motionone/solid";
+import { setUser } from "../utils/sharedSignals";
 
 const Home:Component = () => {
+
+  onMount(() => {
+    setUser(JSON.parse(localStorage.getItem("user")?? ""))
+  })
+
   return (
     <div class={style.homeContainer}>
         <Motion.h1

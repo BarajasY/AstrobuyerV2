@@ -1,6 +1,7 @@
 import { Component, createSignal } from "solid-js";
 import style from "../styles/Signup.module.css";
 import { sha256 } from "crypto-hash";
+import { useNavigate } from "@solidjs/router";
 
 const Signup: Component = () => {
   const [Password, setPassword] = createSignal<string>("");
@@ -8,10 +9,12 @@ const Signup: Component = () => {
   const [Email, setEmail] = createSignal<string>("");
 
   const submitUser = async () => {
+    const navigate = useNavigate();
+
     const data = {
       username: Username(),
       pass: await sha256(Password()),
-      email: await sha256(Email())
+      email: Email
     }
     console.log(data);
     const post = await fetch("http://localhost:8000/user/create", {
@@ -22,7 +25,12 @@ const Signup: Component = () => {
       body: JSON.stringify(data)
     })
     if(post.ok) {
-      console.log("Success!")
+      localStorage.setItem("user", JSON.stringify({
+         user: Username,
+         email: Email,
+         isLogged: true
+      }))
+      navigate("/");
     }
   }
 

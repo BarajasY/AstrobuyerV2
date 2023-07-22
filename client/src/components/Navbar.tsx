@@ -1,10 +1,13 @@
-import { ShoppingCart, Stars, User2 } from "lucide-solid";
+/* import { ShoppingCart, Stars, User2 } from "lucide-solid"; */
+import { BsStars, BsCart } from "solid-icons/bs";
+import { AiOutlineUser } from "solid-icons/ai";
 import style from "../styles/Navbar.module.css";
-import { useTooltip } from "../utils/useTooltip";
 import { Component, createSignal } from "solid-js";
 import { A } from "@solidjs/router";
+import { useTooltip } from "../utils/useTooltip";
+import { User } from "../utils/sharedSignals";
 
-const Navbar:Component = () => {
+const Navbar: Component = () => {
   const [Settings, setSettings] = createSignal(false);
 
   return (
@@ -13,16 +16,16 @@ const Navbar:Component = () => {
         <section class={style.logoSection}>
           <A href="/">
             Astrobuyer&nbsp;
-            <Stars size={20} strokeWidth={2} />
+            <BsStars />
           </A>
         </section>
         <section class={style.userSection}>
           <A href="/login">Login</A>
           <A href="/signup">Signup</A>
-{/*           <User2
+
+          {/*  <AiOutlineUser
+            fill="#FFFFFF"
             size={25}
-            strokeWidth={2}
-            class={style.profileIcon}
             onMouseOver={(e) => useTooltip("Profile", e)}
             onClick={() => setSettings(!Settings())}
           />
@@ -34,12 +37,11 @@ const Navbar:Component = () => {
               <h1>Hola</h1>
             </div>
           )} */}
-{/*           <ShoppingCart
-            size={25}
-            strokeWidth={2}
-            class={style.cartIcon}
-            onMouseOver={(e) => useTooltip("Cart", e)}
-          /> */}
+          {/* <BsCart
+                size={25}
+                onMouseOver={(e) => useTooltip("Cart", e)}
+                onClick={() => setSettings(!Settings())}
+              /> */}
         </section>
       </div>
     </div>
