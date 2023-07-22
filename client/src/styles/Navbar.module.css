@@ -62,10 +62,10 @@
 
 .userSection a:nth-child(2) {
     background-color: #802201;
-    background-image: linear-gradient(326deg, #802201 0%, #210d10 74%);
+    background-image: linear-gradient(326deg, var(--red) 30%, #210d10 74%);
 }
 
 .userSection a:nth-child(2):hover {
-    color: #802201;
+    color: var(--red);
     background: white;
 }

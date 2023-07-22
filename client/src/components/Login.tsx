@@ -15,7 +15,7 @@ const Login: Component = () => {
           </article>
           <article>
             <h1>Password</h1>
-            <input type="text" />
+            <input type="password" />
           </article>
         </section>
         <button>Submit</button>

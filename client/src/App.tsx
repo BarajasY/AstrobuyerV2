@@ -1,16 +1,16 @@
-import { Component } from "solid-js";
-import Home from "./components/Home";
-import Store from "./components/Store";
+import { Component, lazy } from "solid-js";
 import { QueryClientProvider, QueryClient } from "@tanstack/solid-query";
-import Navbar from "./components/Navbar";
 import { Route, Router, Routes } from "@solidjs/router";
-import Login from "./components/Login";
+const Login =lazy(() => import("./components/Login"));
+const Home =lazy(() => import("./components/Home"));
+const Store =lazy(() => import("./components/Store"));
+const Navbar =lazy(() => import("./components/Navbar"));
+/* const Signup =lazy(() => import("./components/Signup")); */
+import Signup from "./components/Signup";
 
 const App: Component = () => {
-  const queryclient: QueryClient = new QueryClient();
 
   return (
-    <QueryClientProvider client={queryclient}>
       <Router>
         <Routes>
           <Route
@@ -29,9 +29,16 @@ const App: Component = () => {
               </>
             }
           />
+          <Route
+            path="/signup"
+            element={
+              <>
+                <Navbar /> <Signup />
+              </>
+            }
+          />
         </Routes>
       </Router>
-    </QueryClientProvider>
   );
 };
 

@@ -1,11 +1,12 @@
 import style from "../styles/Store.module.css";
 import { Astro } from "../utils/types";
-import { useQuery } from "../utils/useQuery";
+import { useQuery } from "../utils/utils";
 import { Switch, Match, For, Component } from "solid-js";
 import { Thermometer } from "lucide-solid";
 import ShopFilters from "./ShopFilters";
 
 const Store:Component = () => {
+
   const query = useQuery("GetAstros", "http://localhost:8000/astros");
 
   return (

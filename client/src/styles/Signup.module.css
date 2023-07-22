@@ -1,0 +1,88 @@
+.signupContainer {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.signupContent {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 30%;
+}
+
+.signupContent h1:nth-child(1) {
+    color: white;
+    font-size: 25px;
+}
+
+.signupContent h1:nth-child(1) span {
+    color: var(--red);
+}
+
+.signupContent section {
+    padding: 15px;
+    border: 1px solid white;
+    width: 100%;
+    border-radius: 10px;
+    margin-top: 10px;
+}
+
+.signupContent section article {
+    margin: 10px 0px;
+    width: 100%;
+}
+
+.signupContent section article p {
+    color: var(--red);
+}
+
+.signupContent section article input {
+    width: 100%;
+    border-top: 2px solid transparent;
+    border-right: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-bottom: 2px solid var(--red);
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+    font-size: 18px;
+    transition: .2s;
+    margin-top: 5px;
+    outline: none;
+}
+
+.signupContent section article input:hover {
+    background: var(--redshade);
+}
+
+.signupContent section article input:focus {
+    background: var(--redshade2);
+    border: 2px solid var(--red) !important;
+    box-shadow: 0px 0px 10px var(--red);
+}
+
+.signupContent section article input:active {
+    box-shadow: 0px 0px 100px var(--red);
+}
+
+.signupContent button {
+    border: 2px solid white;
+    padding: 8px 10px;
+    margin-top: 15px;
+    color: white;
+    border-radius: 8px;
+    font-size: 20px;
+    transition: .2s;
+    box-shadow: 0px 0px 0px var(--red);
+    background-image: linear-gradient(326deg, #f8002f 0%, #000c14 74%);
+}
+
+.signupContent button:hover {
+    border: 2px solid var(--red);
+    box-shadow: 0px 0px 100px var(--red);
+    cursor: pointer;
+}

@@ -45,15 +45,32 @@
 }
 
 .loginContent section input {
-    border-top: 0px;
-    border-left: 0px;
-    border-right: 0px;
+    border-top: 2px solid transparent;
+    border-left: 2px solid transparent;
+    border-right: 2px solid transparent;
     border-bottom: 2px solid white;
     color: white;
-    font-size: 20px;
+    font-size: 18px;
     outline: none;
-    padding: 5px 0px;
+    padding: 10px;
     width: 100%;
+    transition: .2s;
+    border-radius: 5px;
+    margin-top: 5px;
+}
+
+.loginContent section input:hover {
+    background: #045ce91d;
+}
+
+.loginContent section input:focus {
+    background: #045ce936;
+    border: 2px solid var(--cyan);
+    box-shadow: 0px 0px 10px var(--cyan);
+}
+
+.loginContent section input:active {
+    box-shadow: 0px 0px 50px var(--cyan);
 }
 
 .loginContent section article {
@@ -69,7 +86,7 @@
     font-size: 20px;
     transition: .2s;
     box-shadow: 0px 0px 0px var(--cyan);
-    border: 2px solid black;
+    border: 2px solid white;
 }
 
 .loginContent button:hover {

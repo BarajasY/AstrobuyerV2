@@ -6,3 +6,9 @@ export type Astro = {
     temperature:number,
     image: string
 }
+
+export type User = {
+    user: string,
+    password: string,
+    email: string
+}
