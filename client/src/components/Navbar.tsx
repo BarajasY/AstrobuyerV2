@@ -1,14 +1,26 @@
-/* import { ShoppingCart, Stars, User2 } from "lucide-solid"; */
 import { BsStars, BsCart } from "solid-icons/bs";
 import { AiOutlineUser } from "solid-icons/ai";
 import style from "../styles/Navbar.module.css";
-import { Component, createSignal } from "solid-js";
+import { Component, createSignal, onMount } from "solid-js";
 import { A } from "@solidjs/router";
-import { useTooltip } from "../utils/useTooltip";
-import { User } from "../utils/sharedSignals";
+import { User, setUser } from "../utils/sharedSignals";
+import Cookies from "universal-cookie";
+import { Motion, Presence } from "@motionone/solid";
 
 const Navbar: Component = () => {
   const [Settings, setSettings] = createSignal(false);
+  const cookies = new Cookies();
+
+  onMount(() => {
+    setUser(cookies.getAll());
+  });
+
+  const LogOff = () => {
+    cookies.remove("user");
+    cookies.remove("email");
+    cookies.remove("isLogged");
+    setUser(cookies.getAll());
+  };
 
   return (
     <div class={style.navbarContainer}>
@@ -20,28 +32,39 @@ const Navbar: Component = () => {
           </A>
         </section>
         <section class={style.userSection}>
-          <A href="/login">Login</A>
-          <A href="/signup">Signup</A>
-
-          {/*  <AiOutlineUser
-            fill="#FFFFFF"
-            size={25}
-            onMouseOver={(e) => useTooltip("Profile", e)}
-            onClick={() => setSettings(!Settings())}
-          />
-          {Settings() && (
-            <div class={style.SettingsContainer}>
-              <h1>Hola</h1>
-              <A href="./profile">Profile</A>
-              <h1>Hola</h1>
-              <h1>Hola</h1>
-            </div>
-          )} */}
-          {/* <BsCart
+          {User()?.isLogged ? (
+            <>
+              <p>{User()?.user}</p>
+              <AiOutlineUser
+                fill="#FFFFFF"
                 size={25}
-                onMouseOver={(e) => useTooltip("Cart", e)}
                 onClick={() => setSettings(!Settings())}
-              /> */}
+                class={style.NavbarLoggedIcons}
+              />
+              <Presence>
+                {Settings() && (
+                  <Motion.div
+                    initial={{ opacity: 0 }}
+                    inView={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    class={style.SettingsContainer}
+                  >
+                    <A href="/profile">Profile</A>
+                    <p onclick={() => LogOff()}>Logout</p>
+                  </Motion.div>
+                )}
+              </Presence>
+              <BsCart
+                class={style.NavbarLoggedIcons}
+                size={25}
+              />
+            </>
+          ) : (
+            <>
+              <A href="/login">Login</A>
+              <A href="/signup">Signup</A>
+            </>
+          )}
         </section>
       </div>
     </div>

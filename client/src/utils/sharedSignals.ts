@@ -3,3 +3,4 @@ import { UserClient } from "./types";
 
 export const [NumSignal, setNumSignal] = createSignal(0);
 export const [User, setUser] = createSignal<UserClient>();
+export const [ErrorMessage, setErrorMessage] = createSignal<string>("");

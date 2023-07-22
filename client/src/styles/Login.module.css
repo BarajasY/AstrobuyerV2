@@ -20,6 +20,10 @@
     font-size: 25px;
 }
 
+.loginContent p {
+    color: var(--red);
+}
+
 .loginContent h1 span {
     font-size: 25px;
     background-color: #045de9;

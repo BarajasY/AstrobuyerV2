@@ -7,8 +7,8 @@ use sqlx_postgres::PgPool;
 pub struct User {
     id: Option<i32>,
     username: String,
-    pass: String,
     email: String,
+    pass: String,
 }
 
 #[derive(Serialize, Deserialize)]
@@ -29,7 +29,7 @@ pub struct Login {
 }
 
 pub async fn create_user(State(db_pool): State<PgPool>, Json(payload): Json<User>) -> StatusCode {
-    let query = "INSERT INTO users (username, pass, email) VALUES ($1, $2, $3)";
+    let query = "INSERT INTO users (username, email, pass) VALUES ($1, $2, $3)";
 
     sqlx::query(query)
         .bind(&payload.username)
@@ -61,20 +61,40 @@ pub async fn get_user(
     State(db_pool): State<PgPool>,
     Json(payload): Json<Login>,
 ) -> (StatusCode, Json<UserToClient>) {
-
-    let query = "SELECT FROM users WHERE email = $1 AND pass = $2";
-
-    let row = sqlx::query(query)
-        .bind(&payload.email)
-        .bind(&payload.pass)
-        .fetch_one(&db_pool)
-        .await
-        .expect("Error logging user in.");
-
-    let user: UserToClient = UserToClient {
-        username: row.get("username"),
-        email: row.get("email")
+    let query = "SELECT * FROM users WHERE email = $1 AND pass = $2";
+    //Initialized empty UserToClient variable.
+    let placeholder: UserToClient = UserToClient {
+        username: String::from("wasd"),
+        email: String::from("wasd"),
     };
 
-    (StatusCode::OK, Json(user))
+    //Execute OPTIONAL query.
+    //Used optional query in order to not print an error every single time a user mistakes their account.
+    let row = sqlx::query(query)
+        .bind(payload.email)
+        .bind(payload.pass)
+        .fetch_optional(&db_pool)
+        .await
+        //Up until this point Row would be of type Result<Option<PgRow>>.
+        //.expect will get rid of the Result<> wrapper.
+        .expect("Error executing query");
+
+    //Optional handling.
+    match row {
+        None => {
+            //User inserted incorrect information. Thereby query returned none.
+            //Returns empty user variable formed at the start.
+            (StatusCode::CONFLICT, Json(placeholder))
+        }
+        Some(row) => {
+            //User inserted correct information of email and password.
+            //Thereby query returned a row.
+            let user:UserToClient = UserToClient {
+                email: row.get("email"),
+                username: row.get("username")
+            };
+
+            (StatusCode::OK, Json(user))
+        }
+    }
 }
