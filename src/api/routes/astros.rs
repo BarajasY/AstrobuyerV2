@@ -1,4 +1,4 @@
-use axum::{extract::State, Json, http::StatusCode};
+use axum::{extract::{State, Path}, Json, http::StatusCode};
 use serde::{Deserialize, Serialize};
 use sqlx::Row;
 use sqlx_postgres::PgPool;
@@ -64,4 +64,25 @@ pub async fn delete_astro(State(db_pool): State<PgPool>, Json(payload): Json<Del
     .await.expect("Error deleting astro.");
 
     StatusCode::OK
+}
+
+pub async fn get_one_astro(State(db_pool):State<PgPool>, Path(id): Path<i32>) -> (StatusCode, Json<Astros>) {
+    let query = "SELECT * FROM astros WHERE id = $1";
+
+    let row = sqlx::query(query)
+        .bind(id)
+        .fetch_one(&db_pool)
+        .await
+        .expect("Error querying 1 by id.");
+
+    let astro:Astros = Astros {
+        id: row.get("id"),
+        name: row.get("name"),
+        price: row.get("price"),
+        category: row.get("category"),
+        temperature: row.get("temperature"),
+        image: row.get("image")
+    };
+
+    (StatusCode::OK, Json(astro))
 }

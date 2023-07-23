@@ -2,12 +2,12 @@ import style from "../styles/Store.module.css";
 import { Astro } from "../utils/types";
 import { useQuery } from "../utils/utils";
 import { Switch, Match, For, Component } from "solid-js";
-import { FiThermometer } from 'solid-icons/fi'
 import ShopFilters from "./ShopFilters";
+import { useNavigate } from "@solidjs/router";
 
-const Store:Component = () => {
-
+const Store: Component = () => {
   const query = useQuery("GetAstros", "http://localhost:8000/astros");
+  const navigate = useNavigate();
 
   return (
     <div class={style.storeContainer}>
@@ -25,17 +25,20 @@ const Store:Component = () => {
               <div class={style.AstroShop}>
                 <For each={query.data}>
                   {(astro: Astro) => (
-                    <div class={style.shopItem}>
+                    <div class={style.shopItem} onClick={() => navigate(`/${astro.id}`)}>
+                      <div class={style.astroCategoryContainer}>
+                        <h1
+                          class={style.astroCategory}
+                          style={{ "font-size": "20px", color: "white" }}
+                        >
+                          {astro.category}
+                        </h1>
+                      </div>
                       <img src={astro.image} alt="Astro" />
                       <section>
                         <h1>{astro.name}</h1>
                         <h1>${astro.price}</h1>
                       </section>
-                      <h1 class={style.fullWidth}>{astro.category}</h1>
-                      <h1 class={style.fullWidth}>
-                        {astro.temperature}
-                        <FiThermometer size={18}/>
-                      </h1>
                     </div>
                   )}
                 </For>

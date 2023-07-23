@@ -45,6 +45,9 @@
     width: 300px;
     padding: 10px;
     border: 2px solid white;
+    overflow: hidden;
+    position: relative;
+    transition: .2s;
 }
 
 .shopItem img {
@@ -92,3 +95,20 @@
     width: 90%;
 }
 
+.astroCategoryContainer {
+    position: absolute;
+    text-align: center;
+    width: 60%;
+    top: 0;
+    right: 0;
+    display: flex;
+    background: var(--darkblue);
+    justify-content: center;
+    transform: rotate(45deg) translateX(50px) translateY(-20px);
+    height: 30px;
+}
+
+.shopItem:hover {
+    transform: translateY(-10px);
+    cursor: pointer;
+}

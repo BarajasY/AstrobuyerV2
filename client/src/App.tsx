@@ -7,6 +7,7 @@ const Store =lazy(() => import("./components/Store"));
 const Navbar =lazy(() => import("./components/Navbar"));
 /* const Signup =lazy(() => import("./components/Signup")); */
 import Signup from "./components/Signup";
+import Astro from "./components/Astro";
 
 const App: Component = () => {
 
@@ -34,6 +35,14 @@ const App: Component = () => {
             element={
               <>
                 <Navbar /> <Signup />
+              </>
+            }
+          />
+          <Route
+            path="/:id"
+            element={
+              <>
+                <Navbar /> <Astro />
               </>
             }
           />

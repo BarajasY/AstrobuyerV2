@@ -26,12 +26,14 @@ code {
 :root {
   --cyan: #29acf1;
   --lightblue: #92cde9;
-  --green: #7cba5f;
+  --green: #91f8c7;
   --redbrown: #6b183a;
   --darkblue: #0047ac;
   --red: #c11c32;
   --redshade: #c11c3219;
   --redshade2: #c11c323e;
+  --coral: #d63147;
+  --bluegreen: #36dbb1;
 }
 
 ::-webkit-scrollbar-track {
