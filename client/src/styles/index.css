@@ -29,11 +29,13 @@ code {
   --green: #91f8c7;
   --redbrown: #6b183a;
   --darkblue: #0047ac;
+  --darkerblue: #0048ac70;
   --red: #c11c32;
   --redshade: #c11c3219;
   --redshade2: #c11c323e;
   --coral: #d63147;
   --bluegreen: #36dbb1;
+  --blueblack: #091c37;
 }
 
 ::-webkit-scrollbar-track {
@@ -41,7 +43,7 @@ code {
 }
 
 ::-webkit-scrollbar-thumb {
-  background: var(--red);
+  background: var(--darkblue);
 }
 
 ::-webkit-scrollbar {

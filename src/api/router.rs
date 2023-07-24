@@ -23,7 +23,7 @@ pub async fn get_router() -> Router {
     .route("/user/login", post(get_user))
     .route("/cart/add", post(add_to_cart))
     .route("/cart/delete", post(delete_from_cart))
-    .route("/cart/get/:user_id", post(get_cart))
+    .route("/cart/get/:user_id", get(get_cart))
     .layer(make_cors())
     .with_state(db_pool)
 }

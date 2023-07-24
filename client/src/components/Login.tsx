@@ -1,17 +1,13 @@
 import { Component, createSignal, onMount } from "solid-js";
 import style from "../styles/Login.module.css";
 import Cookies from "universal-cookie";
-import {
-  ErrorMessage,
-  setErrorMessage,
-  setUser,
-} from "../utils/sharedSignals";
+import { ErrorMessage, setErrorMessage, setUser } from "../utils/sharedSignals";
 import { sha256 } from "crypto-hash";
 import { useNavigate } from "@solidjs/router";
 
 const Login: Component = () => {
-  const [Email, setEmail] = createSignal("");
-  const [Password, setPassword] = createSignal("");
+  const [Email, setEmail] = createSignal<string>("");
+  const [Password, setPassword] = createSignal<string>("");
   const cookies = new Cookies();
   const navigate = useNavigate();
 
@@ -37,6 +33,7 @@ const Login: Component = () => {
       cookies.set("user", data.username);
       cookies.set("email", data.email);
       cookies.set("isLogged", true);
+      cookies.set("id", Number(data.id));
       setUser(cookies.getAll());
       navigate("/");
     }
@@ -55,14 +52,14 @@ const Login: Component = () => {
         <section>
           <article>
             <h1>Email</h1>
-            <input type="text" onchange={(e) => setEmail(e.target.value)} />
+            <input type="text" oninput={(e) => setEmail(e.target.value)} />
           </article>
           <article>
             <h1>Password</h1>
             <input
               type="password"
-              onchange={(e) => setPassword(e.target.value)}
-              onkeypress={(e) => e.key === "Enter" ? submitLogin() : null}
+              oninput={(e) => setPassword(e.target.value)}
+              onkeypress={(e) => (e.key === "Enter" ? submitLogin() : null)}
             />
           </article>
         </section>

@@ -14,6 +14,7 @@ export type User = {
 }
 
 export type UserClient = {
+    id: number,
     user: string,
     email: string,
     isLogged: boolean

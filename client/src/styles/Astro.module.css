@@ -25,6 +25,12 @@
     border-radius: 50%;
 }
 
+#blurImage {
+    position: absolute;
+    filter: blur(50px);
+    z-index: -1;
+}
+
 .AstroDescr {
     width: 50%;
     padding: 20px;
@@ -41,7 +47,7 @@
     position: absolute;
     top: 0;
     left: 0;
-    background: var(--darkblue);
+    background: var(--darkerblue);
     filter: blur(100px);
     z-index: -1;
 }
@@ -56,10 +62,63 @@
     color: var(--cyan);
 }
 
-.AstroTemp span, .AstroCat span{
+.AstroTemp span, .AstroCat span {
     color: var(--bluegreen);
 }
 
 .AstroPrice {
     color: var(--green);
+}
+
+.AstroBuy {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.AstroCart {
+    color: var(--bluegreen);
+    font-size: 30px;
+    margin-right: 20px;
+    transition: .2s;
+}
+
+.AstroCart:hover {
+    cursor: pointer;
+    color: var(--darkblue);
+}
+
+.AstroBuy button {
+    padding: 5px 10px;
+    color: var(--bluegreen);
+    border: 2px solid var(--bluegreen);
+    font-size: 20px;
+    border-radius: 5px;
+    transition: .2s;
+}
+
+.AstroBuy button:hover {
+    cursor: pointer;
+    box-shadow: 0px 0px 20px var(--bluegreen);
+    background: var(--bluegreen);
+    color: var(--darkblue);
+}
+
+.AstroBuy p {
+    width: 100px;
+    margin-right: 20px;
+    color: var(--red);
+}
+
+.CartSuccess {
+    position: absolute;
+    top: 1;
+    left: 1;
+    font-size: 20px;
+    color: var(--bluegreen);
+    padding: 10px;
+    border-radius: 5px;
+    border: 2px solid var(--cyan);
+    background: var(--blueblack);
+    box-shadow: 0px 0px 10px var(--cyan);
 }

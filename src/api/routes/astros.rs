@@ -5,12 +5,12 @@ use sqlx_postgres::PgPool;
 
 #[derive(Deserialize, Serialize)]
 pub struct Astros {
-    id: Option<i32>,
-    name: String,
-    price: i32,
-    category: String,
-    temperature: i32,
-    image: String
+    pub id: Option<i32>,
+    pub name: String,
+    pub price: i32,
+    pub category: String,
+    pub temperature: i32,
+    pub image: String
 }
 
 #[derive(Deserialize, Serialize)]

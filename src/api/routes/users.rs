@@ -18,6 +18,7 @@ pub struct DeleteUser {
 
 #[derive(Serialize, Deserialize)]
 pub struct UserToClient {
+    id: i32,
     username: String,
     email: String,
 }
@@ -64,6 +65,7 @@ pub async fn get_user(
     let query = "SELECT * FROM users WHERE email = $1 AND pass = $2";
     //Initialized empty UserToClient variable.
     let placeholder: UserToClient = UserToClient {
+        id: 0,
         username: String::from("wasd"),
         email: String::from("wasd"),
     };
@@ -90,6 +92,7 @@ pub async fn get_user(
             //User inserted correct information of email and password.
             //Thereby query returned a row.
             let user:UserToClient = UserToClient {
+                id: row.get("id"),
                 email: row.get("email"),
                 username: row.get("username")
             };
