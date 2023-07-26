@@ -11,35 +11,31 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  late Future<List<dynamic>> astros;
-
-  Future<List<Astro>> getAstros() async {
-    List<Astro> astros = [];
-    Uri uri = Uri.http("10.0.2.2:8000", "/astros");
-
-    final response = await http.get(uri);
-    if (response.statusCode == 200) {
-      var decoded = json.decode(response.body);
-      for (var element in decoded) {
-        Astro astro = Astro(
-            id: element["id"],
-            name: element["name"],
-            price: element["price"],
-            category: element["category"],
-            temperature: element["temperature"],
-            image: element["image"]);
-        astros.add(astro);
-      }
-      return astros;
-    } else {
-      throw Exception("Failed to fetch astros.");
-    }
-  }
+  bool menu = false;
 
   @override
   Widget build(BuildContext context) {
+    void toggleMenu() {
+      setState(() {
+        menu = true;
+      });
+    }
+
     return Scaffold(
       backgroundColor: const Color(0xFF000000),
+      appBar: AppBar(
+        automaticallyImplyLeading: false,
+        backgroundColor: const Color(0xFF000000),
+        actions: <Widget>[
+          IconButton(
+              onPressed: toggleMenu,
+              icon: const Icon(
+                IconData(0xf1c3, fontFamily: 'MaterialIcons'),
+                size: 30.0,
+                color: Color(0xFFFFFFFF),
+              ))
+        ],
+      ),
       body: Center(
           child: Container(
               decoration: const BoxDecoration(
@@ -67,6 +63,29 @@ class _Home extends State<Home> {
                     }
                   }))),
     );
+  }
+}
+
+Future<List<Astro>> getAstros() async {
+  List<Astro> astros = [];
+  Uri uri = Uri.http("10.0.2.2:8000", "/astros");
+
+  final response = await http.get(uri);
+  if (response.statusCode == 200) {
+    var decoded = json.decode(response.body);
+    for (var element in decoded) {
+      Astro astro = Astro(
+          id: element["id"],
+          name: element["name"],
+          price: element["price"],
+          category: element["category"],
+          temperature: element["temperature"],
+          image: element["image"]);
+      astros.add(astro);
+    }
+    return astros;
+  } else {
+    throw Exception("Failed to fetch astros.");
   }
 }
 
