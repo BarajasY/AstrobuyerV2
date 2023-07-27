@@ -2,6 +2,9 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
+import 'package:mobile/AstroMainUI.dart';
+import 'package:mobile/astroModel.dart';
+import 'package:mobile/profile.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -17,24 +20,37 @@ class _Home extends State<Home> {
   Widget build(BuildContext context) {
     void toggleMenu() {
       setState(() {
-        menu = true;
+        menu = !menu;
       });
     }
 
     return Scaffold(
       backgroundColor: const Color(0xFF000000),
       appBar: AppBar(
-        automaticallyImplyLeading: false,
         backgroundColor: const Color(0xFF000000),
-        actions: <Widget>[
-          IconButton(
-              onPressed: toggleMenu,
-              icon: const Icon(
-                IconData(0xf1c3, fontFamily: 'MaterialIcons'),
-                size: 30.0,
-                color: Color(0xFFFFFFFF),
-              ))
-        ],
+        leading: Builder(
+            builder: (context) => IconButton(
+                onPressed: () => Scaffold.of(context).openDrawer(),
+                icon: const Icon(
+                  Icons.menu_rounded,
+                  color: Color(0xFFFFFFFF),
+                ))),
+      ),
+      drawer: Drawer(
+        backgroundColor: const Color(0xFF212b35),
+        child: ListView(
+          children: <Widget>[
+            TextButton(
+              onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => const Profile())),
+              child: const Text(
+                "Profile",
+                style: TextStyle(
+                    color: Color(0xFFFFFFFF), fontWeight: FontWeight.w900),
+              ),
+            )
+          ],
+        ),
       ),
       body: Center(
           child: Container(
@@ -52,14 +68,15 @@ class _Home extends State<Home> {
                       return const CircularProgressIndicator();
                     } else {
                       return ListView.builder(
-                        itemCount: snapshot.data.length,
-                        itemBuilder: (ctx, index) => Text(
+                          itemCount: snapshot.data.length,
+                          itemBuilder: (ctx, index) =>
+                              AstroMainUI(astro: snapshot.data[index]));
+                      /* Text(
                           snapshot.data[index].name,
                           style: const TextStyle(
                               color: Color(0xFFFFFFFF),
                               fontWeight: FontWeight.w900),
-                        ),
-                      );
+                        ), */
                     }
                   }))),
     );
@@ -86,32 +103,5 @@ Future<List<Astro>> getAstros() async {
     return astros;
   } else {
     throw Exception("Failed to fetch astros.");
-  }
-}
-
-class Astro {
-  final int id;
-  final String name;
-  final int price;
-  final String category;
-  final int temperature;
-  final String image;
-
-  const Astro(
-      {required this.id,
-      required this.name,
-      required this.price,
-      required this.category,
-      required this.temperature,
-      required this.image});
-
-  factory Astro.fromJson(Map<String, dynamic> json) {
-    return Astro(
-        id: json["id"],
-        name: json["name"],
-        price: json["price"],
-        category: json["category"],
-        temperature: json["temperature"],
-        image: json["image"]);
   }
 }
