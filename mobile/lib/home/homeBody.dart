@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/AstroModel.dart';
+import 'package:mobile/models/AstroModel.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 
@@ -115,17 +115,58 @@ class _homeBody extends State<homeBody> {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    astros![index].name,
-                                    style: const TextStyle(
-                                        color: Color(0xFF29acf1),
-                                        fontWeight: FontWeight.w900),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10.0),
+                                    padding: const EdgeInsets.only(
+                                        top: 2.0,
+                                        left: 15.0,
+                                        right: 15.0,
+                                        bottom: 2.0),
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.bottomLeft,
+                                          colors: [
+                                            Color(0xff222222),
+                                            Color(0xff2c3e50)
+                                          ]),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(8.0),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      astros![index].name,
+                                      style: const TextStyle(
+                                          color:
+                                              Color.fromARGB(255, 44, 181, 255),
+                                          fontWeight: FontWeight.w900),
+                                    ),
                                   ),
-                                  Text(
-                                    astros![index].price.toString(),
-                                    style: const TextStyle(
-                                        fontWeight: FontWeight.w900,
-                                        color: Color(0xff91f8c7)),
+                                  Container(
+                                    margin: const EdgeInsets.only(top: 10.0),
+                                    padding: const EdgeInsets.only(
+                                        top: 2.0,
+                                        left: 15.0,
+                                        right: 15.0,
+                                        bottom: 2.0),
+                                    decoration: const BoxDecoration(
+                                      gradient: LinearGradient(
+                                          begin: Alignment.topRight,
+                                          end: Alignment.bottomLeft,
+                                          colors: [
+                                            Color(0xff222222),
+                                            Color.fromARGB(255, 24, 34, 43)
+                                          ]),
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(8.0),
+                                      ),
+                                    ),
+                                    child: Text(
+                                      astros![index].price.toString(),
+                                      style: const TextStyle(
+                                          fontWeight: FontWeight.w900,
+                                          color: Color(0xff91f8c7)),
+                                    ),
                                   )
                                 ],
                               ),
