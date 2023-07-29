@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/Cart.dart';
-import 'package:mobile/home/homeBody.dart';
-import 'package:mobile/home/homeDrawer.dart';
+import 'package:mobile/cart.dart';
+import 'package:mobile/home/home_body.dart';
+import 'package:mobile/home/home_drawer.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -42,8 +42,8 @@ class _Home extends State<Home> {
           ),
         ),
       ),
-      drawer: const homeDrawer(),
-      body: const homeBody(),
+      drawer: const HomeDrawer(),
+      body: const HomeBody(),
     );
   }
 }

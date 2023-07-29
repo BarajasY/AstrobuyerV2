@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:mobile/login.dart';
 import 'package:mobile/signup.dart';
 
-class homeDrawer extends StatelessWidget {
-  const homeDrawer({super.key});
+class HomeDrawer extends StatelessWidget {
+  const HomeDrawer({super.key});
 
   @override
   Widget build(BuildContext context) {

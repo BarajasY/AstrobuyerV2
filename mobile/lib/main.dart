@@ -2,12 +2,13 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:mobile/home.dart';
-import 'package:mobile/loginModel.dart';
+import 'package:mobile/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
-  runApp(ChangeNotifierProvider(
-      create: (context) => LoginModel(), child: const MyApp()));
+  runApp(MultiProvider(providers: [
+    ChangeNotifierProvider(create: (_) => UserState()),
+  ], child: const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

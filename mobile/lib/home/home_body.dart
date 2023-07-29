@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/AstroModel.dart';
+import 'package:mobile/models/astro_model.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 
-class homeBody extends StatefulWidget {
-  const homeBody({super.key});
+class HomeBody extends StatefulWidget {
+  const HomeBody({super.key});
 
   @override
-  State<homeBody> createState() => _homeBody();
+  State<HomeBody> createState() => _HomeBody();
 }
 
-class _homeBody extends State<homeBody> {
+class _HomeBody extends State<HomeBody> {
   List<Astro>? astros;
 
   @override
