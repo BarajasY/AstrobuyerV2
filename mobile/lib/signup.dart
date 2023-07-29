@@ -10,7 +10,7 @@ class Signup extends StatefulWidget {
 class _Signup extends State<Signup> {
   @override
   Widget build(BuildContext context) {
-    return Text(
+    return const Text(
       "wasd",
       style: TextStyle(color: Color(0xFFFFFFFF)),
     );

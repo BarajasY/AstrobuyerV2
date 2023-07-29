@@ -12,10 +12,15 @@ class UserState with ChangeNotifier {
 
   User get userData => user;
 
-  void logIn(int id, String email, String username) {
+  void logIn(int id, String email, String username, bool logged) {
     user.userId = id;
     user.userEmail = email;
     user.userName = username;
-    user.isLogged = true;
+    user.isLogged = logged;
   }
+}
+
+class UserLoginInfo {
+  late String email;
+  late String pass;
 }
