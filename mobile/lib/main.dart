@@ -1,8 +1,8 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:mobile/home.dart';
-import 'package:mobile/providers/user_provider.dart';
+import 'package:Astrobuyer/home.dart';
+import 'package:Astrobuyer/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/home/home_drawer_lgoff.dart';
-import 'package:mobile/home/home_drawer_lgon.dart';
-import 'package:mobile/providers/user_provider.dart';
+import 'package:Astrobuyer/home/home_drawer_lgoff.dart';
+import 'package:Astrobuyer/home/home_drawer_lgon.dart';
+import 'package:Astrobuyer/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class HomeDrawer extends StatefulWidget {
@@ -22,7 +22,7 @@ class _HomeDrawer extends State<HomeDrawer> {
             padding: const EdgeInsets.all(20.0),
             child: Column(
               children: [
-                context.read<UserState>().userData.isLogged
+                context.read<UserState>().getUserData.isLogged
                     ? const HomeDrawerLgOn()
                     : const HomeDrawerLgOff()
               ],

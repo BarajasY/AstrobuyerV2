@@ -7,20 +7,24 @@ class User {
   String userName = "";
 }
 
-class UserState with ChangeNotifier {
+class UserState extends ChangeNotifier {
   User user = User();
 
-  User get userData => user;
+  User get getUserData => user;
 
   void logIn(int id, String email, String username, bool logged) {
     user.userId = id;
     user.userEmail = email;
     user.userName = username;
     user.isLogged = logged;
+    notifyListeners();
   }
-}
 
-class UserLoginInfo {
-  late String email;
-  late String pass;
+  void logOut() {
+    user.userId = 0;
+    user.userEmail = "";
+    user.userName = "";
+    user.isLogged = false;
+    notifyListeners();
+  }
 }

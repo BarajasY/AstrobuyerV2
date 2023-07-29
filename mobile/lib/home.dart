@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/cart.dart';
-import 'package:mobile/home/home_body.dart';
-import 'package:mobile/home/home_drawer.dart';
+import 'package:Astrobuyer/cart.dart';
+import 'package:Astrobuyer/home/home_body.dart';
+import 'package:Astrobuyer/home/home_drawer.dart';
+import 'package:Astrobuyer/providers/user_provider.dart';
+import 'package:provider/provider.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -11,25 +13,27 @@ class Home extends StatefulWidget {
 }
 
 class _Home extends State<Home> {
-  bool menu = false;
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF000000),
       appBar: AppBar(
         actions: [
-          IconButton(
-            onPressed: () => Navigator.of(context).push(
-              MaterialPageRoute(
-                builder: (context) => const Cart(),
-              ),
-            ),
-            icon: const Icon(
-              IconData(0xe59c, fontFamily: 'MaterialIcons'),
-              color: Color(0xFFFFFFFF),
-            ),
-          )
+          Consumer<UserState>(builder: (context, provider, child) {
+            return (provider.getUserData.isLogged
+                ? IconButton(
+                    onPressed: () => Navigator.of(context).push(
+                      MaterialPageRoute(
+                        builder: (context) => const Cart(),
+                      ),
+                    ),
+                    icon: const Icon(
+                      IconData(0xe59c, fontFamily: 'MaterialIcons'),
+                      color: Color(0xFFFFFFFF),
+                    ),
+                  )
+                : const Text(""));
+          })
         ],
         backgroundColor: const Color(0xFF000000),
         leading: Builder(

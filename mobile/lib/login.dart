@@ -1,9 +1,9 @@
 import 'dart:convert';
 
+import 'package:Astrobuyer/providers/user_provider.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
-import 'package:mobile/providers/user_provider.dart';
 import 'package:provider/provider.dart';
 
 class Login extends StatefulWidget {
@@ -82,7 +82,7 @@ class _Login extends State<Login> {
                   : const Text("")),
               Container(
                 margin: const EdgeInsets.only(top: 20.0),
-                width: 250,
+                width: 300,
                 alignment: Alignment.centerLeft,
                 child: Column(
                   children: [

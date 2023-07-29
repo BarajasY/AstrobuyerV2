@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:mobile/models/astro_model.dart';
+import 'package:Astrobuyer/models/astro_model.dart';
 import "package:http/http.dart" as http;
 import 'dart:convert';
 
