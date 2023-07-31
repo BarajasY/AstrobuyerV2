@@ -5,9 +5,10 @@ import { useQuery } from "../utils/utils";
 import { Astro } from "../utils/types";
 import { Motion, Presence } from "@motionone/solid";
 import { AiOutlineClose } from "solid-icons/ai";
+import { BsTrash } from "solid-icons/bs";
 
 const CartUI = () => {
-  const [CartTotal, setCartTotal] = createSignal<number>(0)
+  const [CartTotal, setCartTotal] = createSignal<number>(0);
 
   const query = useQuery(
     "FetchCart",
@@ -15,11 +16,31 @@ const CartUI = () => {
   );
 
   onMount(() => {
-    const test:Astro[] = query.data;
-    for (let i = 0; i < test.length; i++) {
-      setCartTotal(CartTotal() + test[i].price)
+    const test: Astro[] = query.data;
+    if (test.length < 1) {
+      setCartTotal(0);
+    } else {
+      for (let i = 0; i < test.length; i++) {
+        setCartTotal(CartTotal() + test[i].price);
+      }
     }
-  })
+  });
+
+  const deleteFromCart = async (id:number) => {
+    const post = await fetch("http://localhost:8000/cart/delete", {
+      headers: {
+        "Content-Type": "application/json",
+      },
+      method: "POST",
+      body: JSON.stringify({
+        user_id: User()?.id,
+        astro_id: id
+      })
+    })
+    if(post.ok) {
+
+    }
+  }
 
   return (
     <Presence>
@@ -43,20 +64,25 @@ const CartUI = () => {
                   class={style.CloseCartIcon}
                   size={30}
                   onClick={() => setOpenCart(false)}
-                  />
+                />
               </section>
-                  <p>Cart</p>
+              <p>Cart</p>
               <div class={style.CartAstros}>
-                <For each={query.data}>
-                  {(astro: Astro) => (
-                    <div class={style.AstroContent}>
-                      <img src={astro.image} alt={astro.name} />
-                      <h1>{astro.name}</h1>
-                      <h1>{astro.category}</h1>
-                      <h1>{astro.price}</h1>
-                    </div>
-                  )}
-                </For>
+                {query.data.length < 1 ? (
+                  <h1>No results found</h1>
+                ) : (
+                  <For each={query.data}>
+                    {(astro: Astro) => (
+                      <div class={style.AstroContent}>
+                        <img src={astro.image} alt={astro.name} />
+                        <h1>{astro.name}</h1>
+                        <h1>{astro.category}</h1>
+                        <h1>{astro.price}</h1>
+                        <BsTrash class={style.deleteIcon} onClick={() => deleteFromCart(astro.id)}/>
+                      </div>
+                    )}
+                  </For>
+                )}
               </div>
               <button class={style.TotalButton}>{CartTotal()}</button>
             </Motion.div>

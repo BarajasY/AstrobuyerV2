@@ -45,15 +45,19 @@
 }
 
 .CartAstros {
+    height: 100%;
     overflow-y: scroll;
     width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .AstroContent {
     display: flex;
     padding: 10px;
     display: grid;
-    grid-template-columns: auto auto auto auto;
+    grid-template-columns: auto auto auto auto auto;
     align-items: center;
 }
 
@@ -94,4 +98,15 @@
     cursor: pointer;
     background: var(--cyan);
     color: var(--blueblack);
+}
+
+.deleteIcon {
+    fill: white;
+    font-size: 20px;
+    transition: .2s;
+}
+
+.deleteIcon:hover {
+    fill: var(--coral);
+    cursor: pointer;
 }

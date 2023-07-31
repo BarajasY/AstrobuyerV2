@@ -4,12 +4,27 @@ use sqlx::Row;
 use sqlx_postgres::PgPool;
 use serde::{Deserialize, Serialize};
 
-use super::astros::Astros;
-
 #[derive(Serialize, Deserialize)]
 pub struct AddToCart {
+    item_id: i32,
     user_id: i32,
     astro_id: i32
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct DeleteFromCart {
+    item_id: i32
+}
+
+#[derive(Serialize, Deserialize)]
+pub struct AstroCart {
+    id: i32,
+    item_id: i32,
+    name: String,
+    price: i32,
+    category: String,
+    temperature: i32,
+    image: String
 }
 
 
@@ -26,12 +41,11 @@ pub async fn add_to_cart(State(db_pool): State<PgPool>, Json(payload): Json<AddT
     StatusCode::OK
 }
 
-pub async fn delete_from_cart(State(db_pool): State<PgPool>, Json(payload): Json<AddToCart>) -> StatusCode {
-    let query = "DELETE FROM cart WHERE user_id = $1 AND astro_id = $2";
+pub async fn delete_from_cart(State(db_pool): State<PgPool>, Json(payload): Json<DeleteFromCart>) -> StatusCode {
+    let query = "DELETE FROM cart WHERE item_id = $1";
 
     sqlx::query(query)
-        .bind(payload.user_id)
-        .bind(payload.astro_id)
+        .bind(payload.item_id)
         .execute(&db_pool)
         .await
         .expect("Error deleting from cart");
@@ -39,7 +53,7 @@ pub async fn delete_from_cart(State(db_pool): State<PgPool>, Json(payload): Json
     StatusCode::OK
 }
 
-pub async fn get_cart(State(db_pool): State<PgPool>, Path(user_id): Path<i32>) -> (StatusCode, Json<Vec<Astros>>) {
+pub async fn get_cart(State(db_pool): State<PgPool>, Path(user_id): Path<i32>) -> (StatusCode, Json<Vec<AstroCart>>) {
     let query = "SELECT * FROM cart WHERE user_id = $1";
 
     let rows = sqlx::query(query)
@@ -52,12 +66,13 @@ pub async fn get_cart(State(db_pool): State<PgPool>, Path(user_id): Path<i32>) -
     //Would query the astros table directly from here but i would need an async closure which are unstable.
     let cart: Vec<AddToCart> = rows.iter().map(|r| {
         AddToCart {
+            item_id: r.get("item_id"),
             user_id: r.get("user_id"),
             astro_id: r.get("astro_id")
         }
     }).collect();
 
-    let mut astros:Vec<Astros> = Vec::new();
+    let mut astros:Vec<AstroCart> = Vec::new();
 
     for item in cart {
         let row = sqlx::query("SELECT * from astros WHERE id = $1")
@@ -66,8 +81,9 @@ pub async fn get_cart(State(db_pool): State<PgPool>, Path(user_id): Path<i32>) -
             .await
             .expect("Error executing second query.");
 
-        let result:Astros = Astros {
+        let result:AstroCart = AstroCart {
             id: row.get("id"),
+            item_id: item.astro_id,
             name: row.get("name"),
             price: row.get("price"),
             category: row.get("category"),

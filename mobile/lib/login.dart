@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:Astrobuyer/providers/user_provider.dart';
+import 'package:astrobuyer/providers/user_provider.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;

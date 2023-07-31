@@ -29,8 +29,9 @@ pub struct Login {
     pass: String,
 }
 
-pub async fn create_user(State(db_pool): State<PgPool>, Json(payload): Json<User>) -> StatusCode {
+pub async fn create_user(State(db_pool): State<PgPool>, Json(payload): Json<User>) -> (StatusCode, Json<UserToClient>) {
     let query = "INSERT INTO users (username, email, pass) VALUES ($1, $2, $3)";
+    let query2 = "SELECT * FROM users WHERE email = $1";
 
     sqlx::query(query)
         .bind(&payload.username)
@@ -40,7 +41,19 @@ pub async fn create_user(State(db_pool): State<PgPool>, Json(payload): Json<User
         .await
         .expect("Error creating user");
 
-    StatusCode::OK
+    let row = sqlx::query(query2)
+        .bind(&payload.email)
+        .fetch_one(&db_pool)
+        .await
+        .expect("Error fetching newly created user.");
+
+    let user: UserToClient = UserToClient {
+        id: row.get("id"),
+        username: row.get("username"),
+        email: row.get("email"),
+    };
+
+    (StatusCode::OK, axum::Json(user))
 }
 
 pub async fn delete_user(
@@ -91,10 +104,10 @@ pub async fn get_user(
         Some(row) => {
             //User inserted correct information of email and password.
             //Thereby query returned a row.
-            let user:UserToClient = UserToClient {
+            let user: UserToClient = UserToClient {
                 id: row.get("id"),
                 email: row.get("email"),
-                username: row.get("username")
+                username: row.get("username"),
             };
 
             (StatusCode::OK, Json(user))

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:Astrobuyer/login.dart';
-import 'package:Astrobuyer/signup.dart';
+import 'package:astrobuyer/login.dart';
+import 'package:astrobuyer/signup.dart';
 
 class HomeDrawerLgOff extends StatelessWidget {
   const HomeDrawerLgOff({super.key});

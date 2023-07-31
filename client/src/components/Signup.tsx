@@ -3,6 +3,7 @@ import style from "../styles/Signup.module.css";
 import { sha256 } from "crypto-hash";
 import Cookies from "universal-cookie";
 import { useNavigate } from "@solidjs/router";
+import { setUser } from "../utils/sharedSignals";
 
 const Signup: Component = () => {
   const [Password, setPassword] = createSignal<string>("");
@@ -24,9 +25,12 @@ const Signup: Component = () => {
       }),
     });
     if (post.ok) {
-      cookies.set("user", Username());
-      cookies.set("email", Email());
+      const data = await post.json();
+      cookies.set("user", data.username);
+      cookies.set("email", data.email);
+      cookies.set("id", data.id);
       cookies.set("isLogged", true);
+      setUser(cookies.getAll());
       navigate("/");
     }
   };
