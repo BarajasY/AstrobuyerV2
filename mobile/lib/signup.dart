@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:astrobuyer/providers/user_provider.dart';
 import 'package:crypto/crypto.dart';
 import 'package:flutter/material.dart';
 import "package:http/http.dart" as http;
+import 'package:provider/provider.dart';
 
 class Signup extends StatefulWidget {
   const Signup({super.key});
@@ -15,6 +17,8 @@ class _Signup extends State<Signup> {
   final usernameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+  bool error = false;
+  String errorMessage = "";
 
   Future<void> submitSignup() async {
     var passbytes = utf8.encode(passwordController.text);
@@ -32,8 +36,19 @@ class _Signup extends State<Signup> {
         },
       ),
     );
-
-    if (response.statusCode == 200) {}
+    if (response.statusCode == 200) {
+      var json = jsonDecode(response.body);
+      if (mounted) {
+        context
+            .read<UserState>()
+            .logIn(json["id"], json["email"], json["username"], true);
+        Navigator.of(context).pop();
+      }
+    } else {
+      error = true;
+      errorMessage = "Could not signup your account.";
+    }
+    setState(() {});
   }
 
   @override
@@ -100,6 +115,7 @@ class _Signup extends State<Signup> {
                     Container(
                       margin: const EdgeInsets.only(top: 10.0, bottom: 10.0),
                       child: TextField(
+                          obscureText: true,
                           style: const TextStyle(
                               color: Color(0xFFFFFFFF),
                               fontWeight: FontWeight.w900,

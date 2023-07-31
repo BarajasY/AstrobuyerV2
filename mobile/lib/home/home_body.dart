@@ -1,3 +1,4 @@
+import 'package:astrobuyer/item.dart';
 import 'package:flutter/material.dart';
 import 'package:astrobuyer/models/astro_model.dart';
 import "package:http/http.dart" as http;
@@ -80,100 +81,97 @@ class _HomeBody extends State<HomeBody> {
                   if (astros == null) {
                     return const CircularProgressIndicator();
                   } else {
-                    return Column(
-                      children: [
-                        Container(
-                          padding: const EdgeInsets.all(10.0),
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(10.0),
-                            ),
-                            border: Border(
-                              top: BorderSide(
-                                color: Color(0xFFFFFFFF),
-                              ),
-                              left: BorderSide(
-                                color: Color(0xFFFFFFFF),
-                              ),
-                              bottom: BorderSide(
-                                color: Color(0xFFFFFFFF),
-                              ),
-                              right: BorderSide(
-                                color: Color(0xFFFFFFFF),
-                              ),
-                            ),
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => Item(id: astros![index].id),
                           ),
-                          child: Column(
-                            children: [
-                              Image.network(
-                                astros![index].image,
-                                width: 100,
-                                height: 100,
-                                fit: BoxFit.cover,
+                        );
+                      },
+                      child: Column(
+                        children: [
+                          Container(
+                            padding: const EdgeInsets.all(10.0),
+                            decoration: BoxDecoration(
+                              borderRadius: const BorderRadius.all(
+                                Radius.circular(10.0),
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10.0),
-                                    padding: const EdgeInsets.only(
-                                        top: 2.0,
-                                        left: 15.0,
-                                        right: 15.0,
-                                        bottom: 2.0),
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.bottomLeft,
-                                          colors: [
-                                            Color(0xff222222),
-                                            Color(0xff2c3e50)
-                                          ]),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.0),
+                              border:
+                                  Border.all(color: const Color(0xffffffff)),
+                            ),
+                            child: Column(
+                              children: [
+                                Image.network(
+                                  astros![index].image,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 10.0),
+                                      padding: const EdgeInsets.only(
+                                          top: 2.0,
+                                          left: 15.0,
+                                          right: 15.0,
+                                          bottom: 2.0),
+                                      decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.bottomLeft,
+                                            colors: [
+                                              Color(0xff222222),
+                                              Color(0xff2c3e50)
+                                            ]),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0),
+                                        ),
+                                      ),
+                                      child: Text(
+                                        astros![index].name,
+                                        style: const TextStyle(
+                                            color: Color.fromARGB(
+                                                255, 44, 181, 255),
+                                            fontWeight: FontWeight.w900),
                                       ),
                                     ),
-                                    child: Text(
-                                      astros![index].name,
-                                      style: const TextStyle(
-                                          color:
-                                              Color.fromARGB(255, 44, 181, 255),
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                  ),
-                                  Container(
-                                    margin: const EdgeInsets.only(top: 10.0),
-                                    padding: const EdgeInsets.only(
-                                        top: 2.0,
-                                        left: 15.0,
-                                        right: 15.0,
-                                        bottom: 2.0),
-                                    decoration: const BoxDecoration(
-                                      gradient: LinearGradient(
-                                          begin: Alignment.topRight,
-                                          end: Alignment.bottomLeft,
-                                          colors: [
-                                            Color(0xff222222),
-                                            Color.fromARGB(255, 24, 34, 43)
-                                          ]),
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(8.0),
+                                    Container(
+                                      margin: const EdgeInsets.only(top: 10.0),
+                                      padding: const EdgeInsets.only(
+                                          top: 2.0,
+                                          left: 15.0,
+                                          right: 15.0,
+                                          bottom: 2.0),
+                                      decoration: const BoxDecoration(
+                                        gradient: LinearGradient(
+                                            begin: Alignment.topRight,
+                                            end: Alignment.bottomLeft,
+                                            colors: [
+                                              Color(0xff222222),
+                                              Color.fromARGB(255, 24, 34, 43)
+                                            ]),
+                                        borderRadius: BorderRadius.all(
+                                          Radius.circular(8.0),
+                                        ),
                                       ),
-                                    ),
-                                    child: Text(
-                                      astros![index].price.toString(),
-                                      style: const TextStyle(
-                                          fontWeight: FontWeight.w900,
-                                          color: Color(0xff91f8c7)),
-                                    ),
-                                  )
-                                ],
-                              ),
-                            ],
-                          ),
-                        )
-                      ],
+                                      child: Text(
+                                        astros![index].price.toString(),
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.w900,
+                                            color: Color(0xff91f8c7)),
+                                      ),
+                                    )
+                                  ],
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     );
                   }
                 },

@@ -4,7 +4,7 @@ import { useQuery } from "../utils/utils";
 import { useParams } from "@solidjs/router";
 import { BsCart } from "solid-icons/bs";
 import { User } from "../utils/sharedSignals";
-import { Motion, Presence, createMotion } from "@motionone/solid";
+import { Motion, Presence} from "@motionone/solid";
 
 const Astro: Component = () => {
   const params = useParams();
@@ -43,8 +43,6 @@ const Astro: Component = () => {
           <h1>Error</h1>
         </Match>
         <Match when={query.isSuccess}>
-          {User()?.id}
-          {query.data.id}
           <div class={style.AstroContent}>
             <section class={style.AstroImage}>
               <img src={query.data.image} alt="Astro Image" />

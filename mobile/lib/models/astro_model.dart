@@ -1,10 +1,10 @@
 class Astro {
-  final int id;
-  final String name;
-  final int price;
-  final String category;
-  final int temperature;
-  final String image;
+  int id;
+  String name;
+  int price;
+  String category;
+  int temperature;
+  String image;
 
   Astro(
       {required this.id,

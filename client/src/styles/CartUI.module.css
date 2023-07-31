@@ -49,16 +49,30 @@
     overflow-y: scroll;
     width: 100%;
     display: flex;
+    align-items: center;
     flex-direction: column;
-    justify-content: space-around;
 }
 
 .AstroContent {
+    margin-top: 10px;
+    width: 50%;
+    border: 2px solid white;
+    border-radius: 5px;
     display: flex;
+    flex-direction: column;
     padding: 10px;
-    display: grid;
-    grid-template-columns: auto auto auto auto auto;
     align-items: center;
+}
+
+.AstroName {
+    color: var(--cyan);
+}
+
+.AstroContent section {
+    width: 80%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .AstroContent img {
@@ -68,19 +82,14 @@
     object-fit: cover;
 }
 
-.AstroContent h1:nth-child(2) {
-    font-size: 20px;
-    color: var(--cyan);
-}
-
-.AstroContent h1:nth-child(3) {
-    font-size: 15px;
+.AstroCategory {
     color: var(--coral);
+    font-size: 15px;
 }
 
-.AstroContent h1:nth-child(4) {
-    font-size: 15px;
+.AstroPrice {
     color: var(--bluegreen);
+    font-size: 15px;
 }
 
 .TotalButton {

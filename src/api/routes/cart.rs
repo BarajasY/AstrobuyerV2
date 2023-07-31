@@ -6,7 +6,7 @@ use serde::{Deserialize, Serialize};
 
 #[derive(Serialize, Deserialize)]
 pub struct AddToCart {
-    item_id: i32,
+    item_id: Option<i32>,
     user_id: i32,
     astro_id: i32
 }

@@ -2,7 +2,7 @@ import { For, Match, Switch, createSignal, onMount } from "solid-js";
 import style from "../styles/CartUI.module.css";
 import { User, setOpenCart } from "../utils/sharedSignals";
 import { useQuery } from "../utils/utils";
-import { Astro } from "../utils/types";
+import { Astro, CartAstro } from "../utils/types";
 import { Motion, Presence } from "@motionone/solid";
 import { AiOutlineClose } from "solid-icons/ai";
 import { BsTrash } from "solid-icons/bs";
@@ -16,7 +16,7 @@ const CartUI = () => {
   );
 
   onMount(() => {
-    const test: Astro[] = query.data;
+    const test: Astro[] = query.data?? [];
     if (test.length < 1) {
       setCartTotal(0);
     } else {
@@ -33,8 +33,8 @@ const CartUI = () => {
       },
       method: "POST",
       body: JSON.stringify({
-        user_id: User()?.id,
-        astro_id: id
+        item_id: id
+
       })
     })
     if(post.ok) {
@@ -72,19 +72,21 @@ const CartUI = () => {
                   <h1>No results found</h1>
                 ) : (
                   <For each={query.data}>
-                    {(astro: Astro) => (
+                    {(astro: CartAstro) => (
                       <div class={style.AstroContent}>
                         <img src={astro.image} alt={astro.name} />
-                        <h1>{astro.name}</h1>
-                        <h1>{astro.category}</h1>
-                        <h1>{astro.price}</h1>
-                        <BsTrash class={style.deleteIcon} onClick={() => deleteFromCart(astro.id)}/>
+                        <h1 class={style.AstroName}>{astro.name}</h1>
+                        <section>
+                        <h1 class={style.AstroCategory}>{astro.category}</h1>
+                        <h1 class={style.AstroPrice}>${astro.price}</h1>
+                        </section>
+                        <BsTrash class={style.deleteIcon} onClick={() => deleteFromCart(astro.item_id)}/>
                       </div>
                     )}
                   </For>
                 )}
               </div>
-              <button class={style.TotalButton}>{CartTotal()}</button>
+              <button class={style.TotalButton}>${CartTotal()}</button>
             </Motion.div>
           </Match>
         </Switch>
