@@ -2,7 +2,7 @@
 Full-Stack ecommerce website/mobile app.
 
 # About
-Astrobuyer is a simulated e-commerce store to buy planets. Since it's a simulated site and only designed for learning purposes, It doesn't actually has any integration with Stripe or other payments service. Below you can read more about the tech stack used to build this application.
+Astrobuyer is a simulated e-commerce store to buy planets. Since it's a simulated site and only designed for learning purposes, It doesn't actually has any integration with Stripe or other payments service. Below you can read more about the tech stack used to build this application. This project is a "remake" of my old Astrobuyer website (which you can find in my github)
 
 # Backend
 This project uses the almighty Rust language as It's backend server. Using the Axum and SQLX crate in order to make http operations and database operations.
