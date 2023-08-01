@@ -83,7 +83,7 @@ pub async fn get_cart(State(db_pool): State<PgPool>, Path(user_id): Path<i32>) -
 
         let result:AstroCart = AstroCart {
             id: row.get("id"),
-            item_id: item.astro_id,
+            item_id: item.item_id.unwrap(),
             name: row.get("name"),
             price: row.get("price"),
             category: row.get("category"),

@@ -10,13 +10,17 @@ import { BsTrash } from "solid-icons/bs";
 const CartUI = () => {
   const [CartTotal, setCartTotal] = createSignal<number>(0);
 
-  const query = useQuery(
+  let query = useQuery(
     "FetchCart",
     `http://localhost:8000/cart/get/${User()?.id}`
   );
 
   onMount(() => {
-    const test: Astro[] = query.data?? [];
+    initializeCart();
+  });
+
+  const initializeCart = () => {
+    const test: Astro[] = query.data ?? [];
     if (test.length < 1) {
       setCartTotal(0);
     } else {
@@ -24,23 +28,22 @@ const CartUI = () => {
         setCartTotal(CartTotal() + test[i].price);
       }
     }
-  });
+  }
 
-  const deleteFromCart = async (id:number) => {
+  const deleteFromCart = async (id: number) => {
     const post = await fetch("http://localhost:8000/cart/delete", {
       headers: {
         "Content-Type": "application/json",
       },
       method: "POST",
       body: JSON.stringify({
-        item_id: id
-
-      })
-    })
-    if(post.ok) {
-
+        item_id: id,
+      }),
+    });
+    if (post.ok) {
+      window.location.reload();
     }
-  }
+  };
 
   return (
     <Presence>
@@ -69,18 +72,21 @@ const CartUI = () => {
               <p>Cart</p>
               <div class={style.CartAstros}>
                 {query.data.length < 1 ? (
-                  <h1>No results found</h1>
+                  <h1 style={{"font-size": "15px"}}>No results found</h1>
                 ) : (
                   <For each={query.data}>
                     {(astro: CartAstro) => (
                       <div class={style.AstroContent}>
                         <img src={astro.image} alt={astro.name} />
-                        <h1 class={style.AstroName}>{astro.name}</h1>
                         <section>
-                        <h1 class={style.AstroCategory}>{astro.category}</h1>
-                        <h1 class={style.AstroPrice}>${astro.price}</h1>
+                          <h1 class={style.AstroName}>{astro.name}</h1>
+                          <h1 class={style.AstroCategory}>{astro.category}</h1>
+                          <h1 class={style.AstroPrice}>${astro.price}</h1>
                         </section>
-                        <BsTrash class={style.deleteIcon} onClick={() => deleteFromCart(astro.item_id)}/>
+                        <BsTrash
+                          class={style.deleteIcon}
+                          onClick={() => deleteFromCart(astro.item_id)}
+                        />
                       </div>
                     )}
                   </For>

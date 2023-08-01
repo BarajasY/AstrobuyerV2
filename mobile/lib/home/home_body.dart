@@ -159,7 +159,7 @@ class _HomeBody extends State<HomeBody> {
                                         ),
                                       ),
                                       child: Text(
-                                        astros![index].price.toString(),
+                                        "\$ ${astros![index].price.toString()}",
                                         style: const TextStyle(
                                             fontWeight: FontWeight.w900,
                                             color: Color(0xff91f8c7)),

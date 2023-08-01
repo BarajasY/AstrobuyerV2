@@ -23,6 +23,10 @@
     color: white;
 }
 
+.CartContent p {
+    font-size: 30px;
+}
+
 .CloseCart {
     width: 100%;
     height: 30px;
@@ -39,7 +43,7 @@
 }
 
 .CloseCartIcon:hover {
-    fill: var(--cyan);
+    fill: var(--red);
     transform: rotate(180deg);
     cursor: pointer;
 }
@@ -55,31 +59,32 @@
 
 .AstroContent {
     margin-top: 10px;
-    width: 50%;
+    width: 90%;
     border: 2px solid white;
     border-radius: 5px;
     display: flex;
-    flex-direction: column;
     padding: 10px;
     align-items: center;
 }
 
-.AstroName {
-    color: var(--cyan);
+.AstroContent img {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
 }
 
 .AstroContent section {
-    width: 80%;
+    padding-left: 30px;
+    width: 60%;
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-.AstroContent img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    object-fit: cover;
+.AstroName {
+    color: var(--cyan);
+    font-size: 30px;
 }
 
 .AstroCategory {
@@ -92,30 +97,29 @@
     font-size: 15px;
 }
 
+.deleteIcon {
+    fill: var(--coral);
+    font-size: 30px;
+    transition: .2s;
+}
+
+.deleteIcon:hover {
+    cursor: pointer;
+    fill: var(--redbrown);
+}
+
 .TotalButton {
-    padding: 5px;
+    margin-bottom: 10px;
     width: 100px;
-    margin: 10px 0px;
-    border: 2px solid var(--cyan);
+    padding: 10px;
+    color: var(--bluegreen);
     border-radius: 5px;
-    color: var(--cyan);
-    font-size: 20px;
+    border: 2px solid white;
     transition: .2s;
 }
 
 .TotalButton:hover {
     cursor: pointer;
-    background: var(--cyan);
-    color: var(--blueblack);
-}
-
-.deleteIcon {
-    fill: white;
-    font-size: 20px;
-    transition: .2s;
-}
-
-.deleteIcon:hover {
-    fill: var(--coral);
-    cursor: pointer;
+    color: black;
+    background: var(--bluegreen);
 }

@@ -52,6 +52,25 @@ class _Cart extends State<Cart> {
     }
   }
 
+  Future<void> deleteItem(int itemId) async {
+    Uri uri = Uri.http("10.0.2.2:8000", "cart/delete");
+
+    final request = await http.post(
+      uri,
+      headers: <String, String>{"Content-Type": "application/json"},
+      body: jsonEncode(
+        <String, int>{"item_id": itemId},
+      ),
+    );
+    print(itemId);
+    if (request.statusCode == 200) {
+      astros = [];
+      total = 0;
+      await getCart();
+      setState(() {});
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,89 +84,108 @@ class _Cart extends State<Cart> {
           padding: const EdgeInsets.all(10.0),
           child: Column(
             children: [
-              Expanded(
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: astros.length,
-                  itemBuilder: (BuildContext ctx, int index) {
-                    if (astros.isEmpty) {
-                      return const CircularProgressIndicator();
-                    } else {
-                      return Container(
-                        decoration: BoxDecoration(
-                            border: Border.all(
-                              color: const Color(0xffffffff),
-                            ),
-                            borderRadius:
-                                const BorderRadius.all(Radius.circular(8.0))),
-                        margin: const EdgeInsets.only(top: 5.0, bottom: 5.0),
-                        child: Row(
-                          children: [
-                            Image.network(
-                              astros[index].image,
-                              width: 100,
-                              height: 100,
-                            ),
-                            Container(
-                              width: 150,
-                              margin: const EdgeInsets.only(left: 10.0),
-                              alignment: Alignment.centerLeft,
-                              child: Column(
+              (astros.isEmpty
+                  ? const Text(
+                      "No items found in your cart",
+                      style: TextStyle(
+                          color: Color(0xffffffff),
+                          fontWeight: FontWeight.w900),
+                    )
+                  : Expanded(
+                      child: ListView.builder(
+                        scrollDirection: Axis.vertical,
+                        shrinkWrap: true,
+                        itemCount: astros.length,
+                        itemBuilder: (BuildContext ctx, int index) {
+                          if (astros.isEmpty) {
+                            return const CircularProgressIndicator();
+                          } else {
+                            return Container(
+                              decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: const Color(0xffffffff),
+                                  ),
+                                  borderRadius: const BorderRadius.all(
+                                      Radius.circular(8.0))),
+                              margin:
+                                  const EdgeInsets.only(top: 5.0, bottom: 5.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
                                 children: [
+                                  Image.network(
+                                    astros[index].image,
+                                    width: 100,
+                                    height: 100,
+                                  ),
                                   Container(
+                                    width: 150,
+                                    margin: const EdgeInsets.only(left: 10.0),
                                     alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      astros[index].name,
-                                      style: const TextStyle(
+                                    child: Column(
+                                      children: [
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            astros[index].name,
+                                            style: const TextStyle(
+                                                color: Color.fromARGB(
+                                                    255, 44, 181, 255),
+                                                fontSize: 20.0,
+                                                fontWeight: FontWeight.w900),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            astros[index].category,
+                                            style: const TextStyle(
+                                                color: Color(0xffd63147),
+                                                fontWeight: FontWeight.w900),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "${astros[index].temperature.toString()} ºCelsius",
+                                            style: const TextStyle(
+                                                color: Color(0xffffffff),
+                                                fontWeight: FontWeight.w900),
+                                          ),
+                                        ),
+                                        Container(
+                                          alignment: Alignment.centerLeft,
+                                          child: Text(
+                                            "\$ ${astros[index].price.toString()}",
+                                            style: const TextStyle(
+                                                color: Color(0xff36dbb1),
+                                                fontWeight: FontWeight.w900),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: () async =>
+                                          deleteItem(astros[index].itemId),
+                                      icon: const Icon(Icons.delete_outlined,
                                           color:
-                                              Color.fromARGB(255, 44, 181, 255),
-                                          fontSize: 20.0,
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      astros[index].category,
-                                      style: const TextStyle(
-                                          color: Color(0xffd63147),
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "${astros[index].temperature.toString()} ºCelsius",
-                                      style: const TextStyle(
-                                          color: Color(0xffffffff),
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                  ),
-                                  Container(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text(
-                                      "\$ ${astros[index].price.toString()}",
-                                      style: const TextStyle(
-                                          color: Color(0xff36dbb1),
-                                          fontWeight: FontWeight.w900),
-                                    ),
-                                  ),
+                                              Color.fromARGB(255, 226, 3, 32))),
                                 ],
                               ),
-                            )
-                          ],
-                        ),
-                      );
-                    }
-                  },
-                ),
-              ),
-              Text(
-                "\$ $total",
-                style: const TextStyle(
-                    color: Color(0xff36dbb1), fontWeight: FontWeight.w900),
-              )
+                            );
+                          }
+                        },
+                      ),
+                    )),
+              (astros.isEmpty
+                  ? const Text("")
+                  : Text(
+                      "\$ $total",
+                      style: const TextStyle(
+                          color: Color(0xff36dbb1),
+                          fontWeight: FontWeight.w900),
+                    ))
             ],
           ),
         ),

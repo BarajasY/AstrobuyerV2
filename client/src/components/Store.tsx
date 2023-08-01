@@ -2,7 +2,6 @@ import style from "../styles/Store.module.css";
 import { Astro } from "../utils/types";
 import { useQuery } from "../utils/utils";
 import { Switch, Match, For, Component } from "solid-js";
-import ShopFilters from "./ShopFilters";
 import { useNavigate } from "@solidjs/router";
 
 const Store: Component = () => {
@@ -46,7 +45,6 @@ const Store: Component = () => {
             </Match>
           </Switch>
         </div>
-        <ShopFilters />
       </div>
     </div>
   );
